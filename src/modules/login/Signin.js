@@ -21,7 +21,7 @@ export default class Signin extends React.Component {
   state = {
     email: '',
     password: '',
-    username:'',
+    username: '',
     // profilepic:'',
     EyeActive: true,
   };
@@ -52,7 +52,7 @@ export default class Signin extends React.Component {
     );
   };
   fblogin = () => {
-    LoginManager.logInWithPermissions(['public_profile','email']).then(
+    LoginManager.logInWithPermissions(['public_profile', 'email']).then(
       result => {
         if (result.isCancelled) {
           console.log('Login cancelled');
@@ -72,12 +72,14 @@ export default class Signin extends React.Component {
                 console.log(error);
               } else {
                 console.log('Success fetching data: ' + JSON.stringify(result));
+                console.log('FB PIC', result.picture);
+
                 this.setState({
-                  username:result.name,
-                  // profilepic:result.data.url
-                })
-                this.storedata()
-                this.props.navigation.navigate('Home')
+                  username: result.name,
+                  profilepic: result.picture.data.url,
+                });
+                this.storedata();
+                this.props.navigation.navigate('Home');
               }
               console.warn(result);
             };
@@ -87,7 +89,8 @@ export default class Signin extends React.Component {
                 accessToken: accessToken,
                 parameters: {
                   fields: {
-                    string: 'email,name,first_name,middle_name,last_name,picture',
+                    string:
+                      'email,name,first_name,middle_name,last_name,picture.type(large)',
                   },
                 },
               },
@@ -103,13 +106,11 @@ export default class Signin extends React.Component {
     );
   };
   storedata = async () => {
-    try{
-      await AsyncStorage.setItem("usernamefb",this.state.username)
-      // await AsyncStorage.setItem("userpicfb",this.state.profilepic)
-    } catch(e){
-      
-    }
-  }
+    try {
+      await AsyncStorage.setItem('usernamefb', this.state.username);
+      await AsyncStorage.setItem('userpicfb', this.state.profilepic);
+    } catch (e) {}
+  };
   render() {
     return (
       <KeyboardAwareScrollView>

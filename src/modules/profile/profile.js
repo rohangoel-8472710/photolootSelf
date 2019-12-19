@@ -7,21 +7,19 @@ import NavTabBar from './index';
 import {Header} from '../../component/headers/header';
 import AsyncStorage from '@react-native-community/async-storage';
 
-
 export default class Profile extends Component {
-  
   constructor(props) {
-    super(props)
-  
+    super(props);
+
     this.state = {
-       Name:'',
-      //  pic:''
-    }
+      Name: '',
+      pic: '',
+    };
   }
-  
+
   componentDidMount() {
-   this.props.navigation.setParams({name: 'Lucy'});
-  this.getData()
+    this.props.navigation.setParams({name: 'Lucy'});
+    this.getData();
   }
   renderText = (...rest) => {
     return (
@@ -38,20 +36,20 @@ export default class Profile extends Component {
   };
   getData = async () => {
     try {
-      const value = await AsyncStorage.getItem('usernamefb')
-      const value1= await AsyncStorage.getItem('userpic')
-      if(value !== null) {
-        // value previously store
-        this.setState({
-          Name:value,
-          // pic:value1
-        })
-        
-      }
-    } catch(e) {
+
+      AsyncStorage.getItem('usernamefb', (err, res) => {
+        this.setState({Name: res});
+      });
+      AsyncStorage.getItem('userpicfb', (err, res) => {
+        this.setState({pic: res});
+        console.log('Profile pic', res);
+      });
+
+      // value previously
+    } catch (e) {
       // error reading value
     }
-  }
+  };
   render() {
     return (
       <>
@@ -61,9 +59,14 @@ export default class Profile extends Component {
           showVotebutton={false}
         />
         <View style={styles.container}>
-          <Image style={styles.profileImgStyle} 
-          // source={{uri:this.state.pic}}
-          />
+          {(pic = !null) ? (
+            <Image
+              style={styles.profileImgStyle}
+              source={{uri: this.state.pic}}
+            />
+          ) : (
+            <Image style={styles.profileImgStyle} />
+          )}
           <View style={styles.texts}>
             <View style={styles.editView}>
               {this.renderText(this.state.Name, vh(15), '600')}
