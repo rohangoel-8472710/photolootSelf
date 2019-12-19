@@ -4,11 +4,24 @@ import {Text, View, TouchableOpacity, Image} from 'react-native';
 import {styles} from './styles';
 import {vh, color, Strings, Images} from '../../Constants';
 import NavTabBar from './index';
-import { Header } from '../../component/headers/header';
+import {Header} from '../../component/headers/header';
+import AsyncStorage from '@react-native-community/async-storage';
+
 
 export default class Profile extends Component {
-  componentDidMount(){
-    this.props.navigation.setParams({ name: 'Lucy' })
+  
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       Name:'',
+      //  pic:''
+    }
+  }
+  
+  componentDidMount() {
+   this.props.navigation.setParams({name: 'Lucy'});
+  this.getData()
   }
   renderText = (...rest) => {
     return (
@@ -23,19 +36,37 @@ export default class Profile extends Component {
       </Text>
     );
   };
+  getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('usernamefb')
+      const value1= await AsyncStorage.getItem('userpic')
+      if(value !== null) {
+        // value previously store
+        this.setState({
+          Name:value,
+          // pic:value1
+        })
+        
+      }
+    } catch(e) {
+      // error reading value
+    }
+  }
   render() {
     return (
       <>
-      <Header
-      title="Patricia.cau88"
-      showBackButton={false}
-      showVotebutton={false}
-      />
+        <Header
+          title={this.state.Name}
+          showBackButton={false}
+          showVotebutton={false}
+        />
         <View style={styles.container}>
-          <View style={styles.profileImgStyle} />
+          <Image style={styles.profileImgStyle} 
+          // source={{uri:this.state.pic}}
+          />
           <View style={styles.texts}>
             <View style={styles.editView}>
-              {this.renderText('Patricia Caullins', vh(15), '600')}
+              {this.renderText(this.state.Name, vh(15), '600')}
               <TouchableOpacity
                 onPress={() => this.props.navigation.navigate('Edit')}
                 style={styles.editButton}>
@@ -62,8 +93,7 @@ export default class Profile extends Component {
             </View>
           </View>
         </View>
-        <NavTabBar 
-        />
+        <NavTabBar />
       </>
     );
   }

@@ -21,18 +21,10 @@ export default class Signin extends React.Component {
   state = {
     email: '',
     password: '',
+    username:'',
+    // profilepic:'',
     EyeActive: true,
   };
-
-  // constructor(props) {
-  // super(props);
-  // debugger;
-  // }
-
-  navigateWithParams(result) {
-    // this.props.navigation.navigate("Home",{userData: result})
-    console.warn(result);
-  }
   setIgToken = async data => {
     await store.save('igToken', data.access_token);
     await store.save('igUserId', data.user_id);
@@ -60,7 +52,7 @@ export default class Signin extends React.Component {
     );
   };
   fblogin = () => {
-    LoginManager.logInWithPermissions(['public_profile']).then(
+    LoginManager.logInWithPermissions(['public_profile','email']).then(
       result => {
         if (result.isCancelled) {
           console.log('Login cancelled');
@@ -78,18 +70,16 @@ export default class Signin extends React.Component {
             const responseInfoCallback = (error, result) => {
               if (error) {
                 console.log(error);
-                // alert('Error fetching data: ' + error.toString());
               } else {
-                // console.log(result);
-                console.warn('Success fetching data: ' + result);
-                // this.navigateWithParams("hello")
-                // this.navigationfb();
-                // console.warn(this.state)
-                // fbresult=result;
-                // this.navigateWithParams();
-                this.props.navigation.navigate('Home');
+                console.log('Success fetching data: ' + JSON.stringify(result));
+                this.setState({
+                  username:result.name,
+                  // profilepic:result.data.url
+                })
+                this.storedata()
+                this.props.navigation.navigate('Home')
               }
-              console.warn(fbresult);
+              console.warn(result);
             };
             const infoRequest = new GraphRequest(
               '/me',
@@ -97,7 +87,7 @@ export default class Signin extends React.Component {
                 accessToken: accessToken,
                 parameters: {
                   fields: {
-                    string: 'email,name,first_name,middle_name,last_name',
+                    string: 'email,name,first_name,middle_name,last_name,picture',
                   },
                 },
               },
@@ -112,40 +102,14 @@ export default class Signin extends React.Component {
       },
     );
   };
-
-  navigationfb = () => {
-    // this.props.navigation.navigate('Home');
-    console.warn(this.state);
-  };
-  instalogin = () => {
-    <InstagramLogin
-      ref={ref => (this.instagramLogin = ref)}
-      appId="743976409421312"
-      appSecret="1f34f7dc55c36a65b76b2d655c6c6375"
-      scopes={['user_profile', 'user_media']}
-      onLoginSuccess={this.setIgToken}
-      onLoginFailure={data => console.log(data)}
-    />;
-    // <InstagramLogin
-    //   ref={ref => (this.instagramLogin = ref)}
-    //   appId="743976409421312"
-    //   appSecret="1f34f7dc55c36a65b76b2d655c6c6375"
-    //   redirectUrl="https://google.com"
-    //   scopes={['user_profile', 'user_media']}
-    //   onLoginSuccess={res => {
-    //     console.warn('success=>' + res);
-    //   }}
-    //   onLoginFailure={fail => {
-    //     console.warn('fail=>' + fail);
-    //   }}
-    // />;
-    setIgToken = data => {
-      console.log('data=', data);
-      store.save('igToken', data.access_token);
-      store.save('igUserId', data.user_id);
-      this.setState({igToken: data.access_token, igUserId: data.user_id});
-    };
-  };
+  storedata = async () => {
+    try{
+      await AsyncStorage.setItem("usernamefb",this.state.username)
+      // await AsyncStorage.setItem("userpicfb",this.state.profilepic)
+    } catch(e){
+      
+    }
+  }
   render() {
     return (
       <KeyboardAwareScrollView>
