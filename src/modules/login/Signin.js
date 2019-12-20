@@ -22,7 +22,8 @@ export default class Signin extends React.Component {
     email: '',
     password: '',
     username: '',
-    // profilepic:'',
+    profilepic:'',
+    usermail:'',
     EyeActive: true,
   };
   setIgToken = async data => {
@@ -52,7 +53,7 @@ export default class Signin extends React.Component {
     );
   };
   fblogin = () => {
-    LoginManager.logInWithPermissions(['public_profile', 'email']).then(
+    LoginManager.logInWithPermissions(['public_profile']).then(
       result => {
         if (result.isCancelled) {
           console.log('Login cancelled');
@@ -77,6 +78,7 @@ export default class Signin extends React.Component {
                 this.setState({
                   username: result.name,
                   profilepic: result.picture.data.url,
+                  usermail:result.email
                 });
                 this.storedata();
                 this.props.navigation.navigate('Home');
@@ -109,6 +111,7 @@ export default class Signin extends React.Component {
     try {
       await AsyncStorage.setItem('usernamefb', this.state.username);
       await AsyncStorage.setItem('userpicfb', this.state.profilepic);
+      await AsyncStorage.setItem('mail', this.state.usermail);
     } catch (e) {}
   };
   render() {

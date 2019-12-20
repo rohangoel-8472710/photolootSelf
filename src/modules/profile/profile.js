@@ -14,6 +14,7 @@ export default class Profile extends Component {
     this.state = {
       Name: '',
       pic: '',
+      mailid: '',
     };
   }
 
@@ -36,7 +37,6 @@ export default class Profile extends Component {
   };
   getData = async () => {
     try {
-
       AsyncStorage.getItem('usernamefb', (err, res) => {
         this.setState({Name: res});
       });
@@ -44,7 +44,10 @@ export default class Profile extends Component {
         this.setState({pic: res});
         console.log('Profile pic', res);
       });
-
+      AsyncStorage.getItem('mail', (err, res) => {
+        this.setState({mailid: res});
+        console.log('emailid', res);
+      });
       // value previously
     } catch (e) {
       // error reading value
@@ -76,7 +79,10 @@ export default class Profile extends Component {
                 <Image source={Images.EDITIMAGE} resizeMode="contain" />
               </TouchableOpacity>
             </View>
-            {this.renderText('patricia_aul@xyz.com', vh(12), '600', color.gray)}
+
+          
+            {(this.state.mailid === null) ?  (this.renderText('no Email Id', vh(12), '600', color.gray)) : (this.renderText(this.state.mailid, vh(12), '600', color.gray))}
+
             {this.renderText(
               Strings.profileDescription,
               vh(11),

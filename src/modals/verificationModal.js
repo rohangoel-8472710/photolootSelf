@@ -9,7 +9,7 @@ import {
 //Custom Imports
 import {Images, Strings, DesignWidth, vw, vh} from '../Constants';
 import {styles} from './styles';
-
+import {LoginButton} from 'react-native-fbsdk';
 export const VerificationModal = props => {
   return (
     <TouchableOpacity
@@ -238,6 +238,10 @@ export const showConfirmationModal = props => {
           <Text style={{marginLeft: vw(11),fontSize:vw(14)}}>No</Text>
         </TouchableOpacity>
         <TouchableOpacity
+        // onPress = {()=>
+        // <LoginButton
+        // onLogoutFinished={()=> console.log("logout")}/>
+        // }
           style={{
             flexDirection: 'row',
             marginLeft: vw(15),
@@ -246,7 +250,7 @@ export const showConfirmationModal = props => {
           }}>
           <Image source={Images.YES} />
           <Text style={{marginLeft: vw(11),fontSize:vw(14)}}>Yes</Text>
-        </TouchableOpacity>
+          </TouchableOpacity>
       </TouchableOpacity>
     </TouchableOpacity>
   );
