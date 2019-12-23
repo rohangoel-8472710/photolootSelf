@@ -22,8 +22,8 @@ export default class Signin extends React.Component {
     email: '',
     password: '',
     username: '',
-    profilepic:'',
-    usermail:'',
+    profilepic: '',
+    usermail: '',
     EyeActive: true,
   };
   setIgToken = async data => {
@@ -78,7 +78,7 @@ export default class Signin extends React.Component {
                 this.setState({
                   username: result.name,
                   profilepic: result.picture.data.url,
-                  usermail:result.email
+                  usermail: result.email,
                 });
                 this.storedata();
                 this.props.navigation.navigate('Home');
