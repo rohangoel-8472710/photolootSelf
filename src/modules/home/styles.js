@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
         alignItems:'center',
         height:vh(600)   // todo need to check 
         ,justifyContent:'center',
-        marginVertical:vh(10)
+        marginVertical:vh(10),
     },
     headerView:{
         width:vw(DesignWidth),

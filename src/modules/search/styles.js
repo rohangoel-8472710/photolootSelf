@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
     marginLeft: vw(10),
     width: vw(300),
     textAlign: 'left',
-    height: vh(30),
+    height: vh(50),
     color: color.white,
     marginTop:vh(30)
   },

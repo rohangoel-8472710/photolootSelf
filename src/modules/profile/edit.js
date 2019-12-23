@@ -3,9 +3,15 @@ import {Text, View, Image, TextInput} from 'react-native';
 //Custom Imports
 import {Images} from '../../Constants';
 import {styles} from './styles';
-
+import AsyncStorage from '@react-native-community/async-storage';
 // Get name email username bio from redux in text input
 export const Edit = () => {
+  // this.state={
+  //   pic:'',
+  // }
+  // componentDidMount(){
+  //    this.getData();
+  // };
   return (
     <View style={styles.editContainer}>
       <Image 

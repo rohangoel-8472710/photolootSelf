@@ -71,6 +71,7 @@ class Home extends Component {
       showsVerticalScrollIndicator={false}
         style={styles.scrollViewStyle}
         bounces={true}
+        contentInset={{top:40,left:0,right:0,bottom:40}}
         contentContainerStyle={styles.container}>
         {/* //Header */}
 

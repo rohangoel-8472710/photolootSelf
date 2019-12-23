@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, SectionList} from 'react-native';
+import {Text, View, SectionList,Platform} from 'react-native';
 import {vh, vw} from '../../Constants';
 import {styles} from './styles';
 import {ThreeStickerContainer} from '../../component/functionalComponent/functional';
@@ -32,6 +32,8 @@ export default class HallOfFame extends Component {
       <View style={styles.container}>
         <SectionList
           sections={DATA}
+          style={  { marginBottom:100}
+        }
           keyExtractor={index => index.toString()}
           renderItem={this.renderData}
           renderSectionHeader={({
@@ -47,6 +49,9 @@ export default class HallOfFame extends Component {
                 height: vh(30),
                 backgroundColor: 'white',
                 alignItems:'center',
+                // paddingBottom:Platform.OS==='android'?40:0
+                // marginTop: Platform.OS==='android'? 20: 0
+
               }}>
               <Text
                 style={{color: 'black', fontWeight: 'bold', fontSize: vw(18)}}>

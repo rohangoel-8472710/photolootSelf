@@ -11,6 +11,7 @@ import Strings from '../../Constants/Strings';
 import Images from '../../Constants/Images';
 import {styles} from './styles';
 import { Header } from '../../component/headers/header';
+import Share from 'react-native-share';
 notifydata = [
   {
     title: Strings.CHANGEPASSWORD,
@@ -75,10 +76,30 @@ notifydata = [
 ];
 
 class Settings extends React.Component {
-  state = {switchValue: false};
+  state = {switchValue: false,result:''};
   toggleSwitch = value => {
-    this.setState({switchValue: value});
+    this.setState({switchValue: value,});
   };
+  ShareApp = async () => {
+    const shareOptions = {
+      title: 'Share Via',
+      message: 'some message',
+      url: 'some share url',
+      social: Share.Social,
+  };
+  try{
+    const ShareResponse = await Share.open(shareOptions);
+      console.log('data', ShareResponse);
+      this.setState({
+        result: JSON.stringify(ShareResponse),
+      });
+  } catch (error){
+    console.log('Error =>', error);
+      this.setState({
+        result: getErrorString(error),
+      });
+  }
+};
   sendData = rowData => {
     switch (rowData.item.title) {
       case 'Clear Search History':
@@ -96,7 +117,9 @@ class Settings extends React.Component {
           title: rowData.item.title,
         });
         break;
-
+        case 'Invite Contact' :
+          this.ShareApp()
+          break; 
       default: {
         rowData.item.goto && this.props.navigation.navigate(rowData.item.goto);
       }
@@ -114,6 +137,7 @@ class Settings extends React.Component {
       <FlatList
         bounces={false}
         data={notifydata}
+        showsVerticalScrollIndicator={false}
         keyExtractor={index => index.toString()}
         renderItem={rowData => {
           return (
