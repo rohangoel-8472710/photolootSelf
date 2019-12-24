@@ -12,11 +12,9 @@ export default class Profile extends Component {
     super(props);
 
     this.state = {
-      Name: '', //fb
-      pic: '', //fb
-      mailid: '', //fb
-      namesub: '',
-      mailsub: '',
+      Name: '',
+      pic: '', 
+      mailid: '', 
     };
   }
 
@@ -39,23 +37,23 @@ export default class Profile extends Component {
   };
   getData = async () => {
     try {
-      AsyncStorage.getItem('usernamefb', (err, res) => {
+      AsyncStorage.getItem('name', (err, res) => {
         this.setState({Name: res});
       });
       AsyncStorage.getItem('userpicfb', (err, res) => {
         this.setState({pic: res});
         console.log('Profile pic', res);
       });
-      AsyncStorage.getItem('mailfb', (err, res) => {
-        this.setState({mailid: res});
-        console.log('emailid', res);
-      });
-      AsyncStorage.getItem('name', (err, res) => {
-        this.setState({namesub: res});
-        console.log('name', res);
-      });
+      // AsyncStorage.getItem('mailfb', (err, res) => {
+      //   this.setState({mailid: res});
+      //   console.log('emailid', res);
+      // });
+      // AsyncStorage.getItem('name', (err, res) => {
+      //   this.setState({namesub: res});
+      //   console.log('name', res);
+      // });
       AsyncStorage.getItem('email', (err, res) => {
-        this.setState({mailsub: res});
+        this.setState({mailid: res});
         console.log('mail', res);
       });
       // value previously
@@ -67,7 +65,7 @@ export default class Profile extends Component {
     return (
       <>
         <Header
-          title={this.state.namesub}
+          title={this.state.Name}
           showBackButton={false}
           showVotebutton={false}
         />
@@ -82,7 +80,7 @@ export default class Profile extends Component {
           )}
           <View style={styles.texts}>
             <View style={styles.editView}>
-              {this.renderText(this.state.namesub, vh(15), '600')}
+              {this.renderText(this.state.Name, vh(15), '600')}
               <TouchableOpacity
                 onPress={() => this.props.navigation.navigate('Edit')}
                 style={styles.editButton}>
@@ -90,9 +88,9 @@ export default class Profile extends Component {
               </TouchableOpacity>
             </View>
 
-            {this.state.mailsub === null
+            {this.state.mailid === null
               ? this.renderText('no Email Id', vh(12), '600', color.gray)
-              : this.renderText(this.state.mailsub, vh(12), '600', color.gray)}
+              : this.renderText(this.state.mailid, vh(12), '600', color.gray)}
 
             {this.renderText(
               Strings.profileDescription,

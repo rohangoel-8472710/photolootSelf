@@ -21,9 +21,9 @@ export default class Signin extends React.Component {
   state = {
     email: '',
     password: '',
-    username: '', //fb
+    //username: '', //fb
     profilepic: '', //fb
-    usermail: '', //fb
+    //usermail: '', //fb
     EyeActive: true,
   };
   setIgToken = async data => {
@@ -109,9 +109,9 @@ export default class Signin extends React.Component {
   };
   storedata = async () => {
     try {
-      await AsyncStorage.setItem('usernamefb', this.state.username);
+      await AsyncStorage.setItem('name', this.state.username);
       await AsyncStorage.setItem('userpicfb', this.state.profilepic);
-      await AsyncStorage.setItem('mailfb', this.state.usermail);
+      await AsyncStorage.setItem('email', this.state.usermail);
     } catch (e) {}
   };
   render() {
