@@ -12,9 +12,11 @@ export default class Profile extends Component {
     super(props);
 
     this.state = {
-      Name: '',
-      pic: '',
-      mailid: '',
+      Name: '', //fb
+      pic: '', //fb
+      mailid: '', //fb
+      namesub: '',
+      mailsub: '',
     };
   }
 
@@ -44,9 +46,17 @@ export default class Profile extends Component {
         this.setState({pic: res});
         console.log('Profile pic', res);
       });
-      AsyncStorage.getItem('mail', (err, res) => {
+      AsyncStorage.getItem('mailfb', (err, res) => {
         this.setState({mailid: res});
         console.log('emailid', res);
+      });
+      AsyncStorage.getItem('name', (err, res) => {
+        this.setState({namesub: res});
+        console.log('name', res);
+      });
+      AsyncStorage.getItem('email', (err, res) => {
+        this.setState({mailsub: res});
+        console.log('mail', res);
       });
       // value previously
     } catch (e) {
@@ -57,7 +67,7 @@ export default class Profile extends Component {
     return (
       <>
         <Header
-          title={this.state.Name}
+          title={this.state.namesub}
           showBackButton={false}
           showVotebutton={false}
         />
@@ -72,7 +82,7 @@ export default class Profile extends Component {
           )}
           <View style={styles.texts}>
             <View style={styles.editView}>
-              {this.renderText(this.state.Name, vh(15), '600')}
+              {this.renderText(this.state.namesub, vh(15), '600')}
               <TouchableOpacity
                 onPress={() => this.props.navigation.navigate('Edit')}
                 style={styles.editButton}>
@@ -80,8 +90,9 @@ export default class Profile extends Component {
               </TouchableOpacity>
             </View>
 
-          
-            {(this.state.mailid === null) ?  (this.renderText('no Email Id', vh(12), '600', color.gray)) : (this.renderText(this.state.mailid, vh(12), '600', color.gray))}
+            {this.state.mailsub === null
+              ? this.renderText('no Email Id', vh(12), '600', color.gray)
+              : this.renderText(this.state.mailsub, vh(12), '600', color.gray)}
 
             {this.renderText(
               Strings.profileDescription,
