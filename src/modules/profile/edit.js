@@ -8,9 +8,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 //const Edit = () => {
 export default class Edit extends Component {
-  //     componentDidMount() {
-  //          this.getData();
-  //       }
   constructor(props) {
     super(props);
     this.state = {
@@ -21,7 +18,7 @@ export default class Edit extends Component {
     this.getData();
   }
   getData = async () => {
-    AsyncStorage.getItem('userpicfb', (err, res) => {
+    AsyncStorage.getItem('userpic', (err, res) => {
       this.setState({pic: res});
       console.log('Profile pic', res);
     });

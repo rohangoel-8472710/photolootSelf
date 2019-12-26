@@ -9,7 +9,6 @@ import {
 //Custom Imports
 import {Images, Strings, DesignWidth, vw, vh} from '../Constants';
 import {styles} from './styles';
-import {LoginButton} from 'react-native-fbsdk';
 export const VerificationModal = props => {
   return (
     <TouchableOpacity
@@ -22,8 +21,12 @@ export const VerificationModal = props => {
           source={props.navigation.getParam('image')}
           resizeMode="contain"
         />
-<Text style={styles.verifyText}>{props.navigation.getParam('title')}</Text>
-        <Text style={styles.detailTxt}>{props.navigation.getParam('detail')}</Text>
+        <Text style={styles.verifyText}>
+          {props.navigation.getParam('title')}
+        </Text>
+        <Text style={styles.detailTxt}>
+          {props.navigation.getParam('detail')}
+        </Text>
         <TouchableOpacity
           onPress={() => props.navigation.navigate('Login')}
           style={styles.goButton}>
@@ -33,7 +36,6 @@ export const VerificationModal = props => {
     </TouchableOpacity>
   );
 };
-
 
 // Congratulations
 
@@ -227,17 +229,18 @@ export const showConfirmationModal = props => {
             </Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity 
-        onPress = {() => props.navigation.goBack()}
+        <TouchableOpacity
+          onPress={() => props.navigation.goBack()}
           style={{
             flexDirection: 'row',
             marginLeft: vw(15),
             alignItems: 'center',
           }}>
           <Image source={Images.NO} />
-          <Text style={{marginLeft: vw(11),fontSize:vw(14)}}>No</Text>
+          <Text style={{marginLeft: vw(11), fontSize: vw(14)}}>No</Text>
         </TouchableOpacity>
         <TouchableOpacity
+          onPress={() => props.navigation.navigate('Login')}
           style={{
             flexDirection: 'row',
             marginLeft: vw(15),
@@ -245,8 +248,8 @@ export const showConfirmationModal = props => {
             marginTop: vh(22),
           }}>
           <Image source={Images.YES} />
-          <Text style={{marginLeft: vw(11),fontSize:vw(14)}}>Yes</Text>
-          </TouchableOpacity>
+          <Text style={{marginLeft: vw(11), fontSize: vw(14)}}>Yes</Text>
+        </TouchableOpacity>
       </TouchableOpacity>
     </TouchableOpacity>
   );

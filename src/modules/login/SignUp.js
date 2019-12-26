@@ -38,9 +38,9 @@ class SignUp extends React.Component {
     const userName = ['username', this.props.userName];
     const email = ['email', this.props.email];
     const password = ['password', this.props.password];
-    const userImage =['userpic'];
+    //const userImage = ['userpic'];
     try {
-      AsyncStorage.multiSet([name, userName, email, password,userImage]);
+      AsyncStorage.multiSet([name, userName, email, password,]);
     } catch (e) {
       //save error
     }
@@ -49,7 +49,7 @@ class SignUp extends React.Component {
       this.props.name.length > 0 &&
       this.props.userName.length > 0 &&
       this.props.email.length > 0 &&
-      this.props.password.length > 0 
+      this.props.password.length > 0
       //this.props.userImage===null
     )
       this.props.navigation.navigate('Login');
@@ -77,8 +77,6 @@ class SignUp extends React.Component {
                 value={this.props.name}
                 onChangeText={text => this.updateInputText('name', text)}
                 placeholderTextColor={color.placeholderText}></TextInput>
-                {/* <Image
-                source={{uri:"https://images.pexels.com/photos/3154302/pexels-photo-3154302.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"}}/> */}
               <View style={styles.inputTextField2Img}></View>
             </View>
             <View style={styles.inputTextField2Container}>
