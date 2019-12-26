@@ -38,7 +38,7 @@ export default class Signin extends React.Component {
   };
   onSubmit = () => {
     AsyncStorage.multiGet(
-      ['name', 'username', 'email', 'password'],
+      ['name', 'username', 'email', 'password', 'userpic'],
       (err, res) => {
         console.log(res);
 
@@ -110,8 +110,8 @@ export default class Signin extends React.Component {
   storedata = async () => {
     try {
       await AsyncStorage.setItem('name', this.state.username);
-      await AsyncStorage.setItem('userpicfb', this.state.profilepic);
-      await AsyncStorage.setItem('email', this.state.usermail);
+      await AsyncStorage.setItem('userpic', this.state.profilepic);
+      await AsyncStorage.setItem('email', this.state.email);
     } catch (e) {}
   };
   render() {

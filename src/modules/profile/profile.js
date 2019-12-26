@@ -13,8 +13,8 @@ export default class Profile extends Component {
 
     this.state = {
       Name: '',
-      pic: '', 
-      mailid: '', 
+      pic: '',
+      mailid: '',
     };
   }
 
@@ -40,7 +40,7 @@ export default class Profile extends Component {
       AsyncStorage.getItem('name', (err, res) => {
         this.setState({Name: res});
       });
-      AsyncStorage.getItem('userpicfb', (err, res) => {
+      AsyncStorage.getItem('userpic', (err, res) => {
         this.setState({pic: res});
         console.log('Profile pic', res);
       });

@@ -238,10 +238,6 @@ export const showConfirmationModal = props => {
           <Text style={{marginLeft: vw(11),fontSize:vw(14)}}>No</Text>
         </TouchableOpacity>
         <TouchableOpacity
-        // onPress = {()=>
-        // <LoginButton
-        // onLogoutFinished={()=> console.log("logout")}/>
-        // }
           style={{
             flexDirection: 'row',
             marginLeft: vw(15),
