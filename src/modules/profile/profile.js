@@ -44,14 +44,6 @@ export default class Profile extends Component {
         this.setState({pic: res});
         console.log('Profile pic', res);
       });
-      // AsyncStorage.getItem('mailfb', (err, res) => {
-      //   this.setState({mailid: res});
-      //   console.log('emailid', res);
-      // });
-      // AsyncStorage.getItem('name', (err, res) => {
-      //   this.setState({namesub: res});
-      //   console.log('name', res);
-      // });
       AsyncStorage.getItem('email', (err, res) => {
         this.setState({mailid: res});
         console.log('mail', res);

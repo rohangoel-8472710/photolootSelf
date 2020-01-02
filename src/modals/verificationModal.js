@@ -9,7 +9,39 @@ import {
 //Custom Imports
 import {Images, Strings, DesignWidth, vw, vh} from '../Constants';
 import {styles} from './styles';
+//import {AccessToken, LoginManager} from 'react-native-fbsdk';
+
 export const VerificationModal = props => {
+  FbLogout = () => {
+    var current_access_token = '';
+    AccessToken.getCurrentAccessToken()
+      .then(data => {
+        current_access_token = data.accessToken.toString();
+      })
+      .then(() => {
+        let logout = new GraphRequest(
+          'me/permissions/',
+          {
+            accessToken: current_access_token,
+            httpMethod: 'DELETE',
+          },
+          (error, result) => {
+            if (error) {
+              console.log('Error fetching data: ' + error.toString());
+            } else {
+              LoginManager.logOut();
+              this.props.navigation.navigate('Login');
+            }
+            console.warn('success:', result);
+          },
+        );
+        new GraphRequestManager().addRequest(logout).start();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   return (
     <TouchableOpacity
       onPress={() => props.navigation.goBack()}
@@ -240,7 +272,7 @@ export const showConfirmationModal = props => {
           <Text style={{marginLeft: vw(11), fontSize: vw(14)}}>No</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => props.navigation.navigate('Login')}
+          onPress={() => this.FbLogout}
           style={{
             flexDirection: 'row',
             marginLeft: vw(15),
