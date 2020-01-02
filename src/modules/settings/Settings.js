@@ -153,6 +153,7 @@ class Settings extends React.Component {
                   {rowData.item.isNotification ? (
                     <Switch
                       style={styles.switchtoggle}
+                      trackColor={{true:'#FFA500'}}
                       onValueChange={this.toggleSwitch}
                       value={this.state.switchValue}
                     />
