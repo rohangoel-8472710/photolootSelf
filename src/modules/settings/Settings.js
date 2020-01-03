@@ -87,6 +87,7 @@ class Settings extends React.Component {
       url: 'some share url',
       social: Share.Social,
     };
+
     try {
       const ShareResponse = await Share.open(shareOptions);
       console.log('data', ShareResponse);
@@ -153,7 +154,7 @@ class Settings extends React.Component {
                   {rowData.item.isNotification ? (
                     <Switch
                       style={styles.switchtoggle}
-                      trackColor={{true:'#FFA500'}}
+                      trackColor={{true: '#FFA500'}}
                       onValueChange={this.toggleSwitch}
                       value={this.state.switchValue}
                     />

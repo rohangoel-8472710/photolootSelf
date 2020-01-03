@@ -220,9 +220,9 @@ export const showConfirmationModal = props => {
               console.log('Error fetching data: ' + error.toString());
             } else {
               LoginManager.logOut();
-              this.props.navigation.navigate('Login');
+              props.navigation.navigate('Login');
             }
-            console.warn('success:', result);
+            console.warn('successfully logout:', result);
           },
         );
         new GraphRequestManager().addRequest(logout).start();
@@ -271,7 +271,7 @@ export const showConfirmationModal = props => {
           <Text style={{marginLeft: vw(11), fontSize: vw(14)}}>No</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => this.FbLogout}
+          onPress={()=> FbLogout()}
           style={{
             flexDirection: 'row',
             marginLeft: vw(15),
