@@ -21,9 +21,7 @@ export default class Signin extends React.Component {
   state = {
     email: '',
     password: '',
-    //username: '', //fb
-    profilepic: '', //fb
-    //usermail: '', //fb
+    profilepic: '',
     EyeActive: true,
   };
   setIgToken = async data => {
@@ -38,7 +36,7 @@ export default class Signin extends React.Component {
   };
   onSubmit = () => {
     AsyncStorage.multiGet(
-      ['name', 'username', 'email', 'password', 'userpic'],
+      ['name', 'username', 'email', 'password'],
       (err, res) => {
         console.log(res);
 
@@ -212,11 +210,16 @@ export default class Signin extends React.Component {
                 onLoginSuccess={data => {
                   store.save('igToken', data.access_token);
                   store.save('igUserId', data.user_id);
+                  // store.save('igusername', data.username);
                   this.setState({
                     igToken: data.access_token,
-                    igUserId: data.user_id,
+                    email: data.user_id,
+                    // igUsername: data.username,
                   });
+                  this.props.navigation.navigate('Home');
+                  console.warn(data);
                 }}
+                //onLoginSuccess={this.setIgToken}
                 onLoginFailure={data => console.log(data)}
               />
             </>

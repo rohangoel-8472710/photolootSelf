@@ -11,6 +11,7 @@ import {Images, Strings, DesignWidth, vw, vh} from '../Constants';
 import {styles} from './styles';
 import {AccessToken, LoginManager} from 'react-native-fbsdk';
 import {GraphRequest, GraphRequestManager} from 'react-native-fbsdk';
+import AsyncStorage from '@react-native-community/async-storage';
 export const VerificationModal = props => {
   return (
     <TouchableOpacity
@@ -202,7 +203,7 @@ export const UpdateAvailable = props => {
 };
 // Clear Search History
 export const showConfirmationModal = props => {
-  FbLogout = () => {
+  Logout = () => {
     var current_access_token = '';
     AccessToken.getCurrentAccessToken()
       .then(data => {
@@ -222,7 +223,7 @@ export const showConfirmationModal = props => {
               LoginManager.logOut();
               props.navigation.navigate('Login');
             }
-            console.warn('successfully logout:', result);
+            console.warn('successfully logout:', result.data);
           },
         );
         new GraphRequestManager().addRequest(logout).start();
@@ -271,7 +272,7 @@ export const showConfirmationModal = props => {
           <Text style={{marginLeft: vw(11), fontSize: vw(14)}}>No</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={()=> FbLogout()}
+          onPress={() => Logout()}
           style={{
             flexDirection: 'row',
             marginLeft: vw(15),
