@@ -17,7 +17,7 @@
     "react-native-gesture-handler": "^1.5.2",
     "react-native-instagram-login": "^2.0.0",
     "react-native-keyboard-aware-scrollview": "^2.1.0",
-    "react-native-reanimated": "^1.4.0",
+    "react-native-reanimated": "^2.10.0",
     "react-native-share": "^2.0.0",
     "react-native-simple-store": "^2.0.2",
     "react-native-switch": "^1.5.0",
